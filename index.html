@@ -214,8 +214,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
     <div class="srv">
       <small>Нужен свой сервер? Запускается одной командой на любом VPS (порт 7777, TCP и UDP):</small>
       <div class="term code" id="term"><span class="c"># Docker</span>
-<span class="g">docker</span> build -t xlam-server server
-<span class="g">docker</span> run -d --restart=always -p 7777:7777/tcp -p 7777:7777/udp -v xlam:/data xlam-server
+<span class="g">git</span> https://github.com/Onigires/xlamserver
+<span class="g">python3</span> xlamserver/server.py
 
 <span class="c"># или просто Node.js</span>
 <span class="g">node</span> server/server.js --port 7777<button class="btn sm copy" id="copy" type="button">Копировать</button></div>
@@ -238,7 +238,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 
 <script>
 /* ===== ВСТАВЬТЕ ССЫЛКУ НА РЕПОЗИТОРИЙ ЗДЕСЬ, например: 'https://github.com/username/xlam-connect' ===== */
-const GITHUB = '';
+const GITHUB = 'https://github.com/Onigires/XlamConnect';
 
 const toast=(m)=>{const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),2600)};
 document.querySelectorAll('a.gh').forEach((a)=>{
