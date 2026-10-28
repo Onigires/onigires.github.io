@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Xlam Connect — играйте как в одной локалке</title>
+<meta name="description" content="Приватная виртуальная сеть для игр и друзей: прямые P2P-соединения, сквозное шифрование, свои IP-адреса. Windows, бесплатно.">
+<meta property="og:title" content="Xlam Connect — виртуальная LAN для друзей">
+<meta property="og:description" content="Прямые P2P-соединения, сквозное шифрование, LAN-игры, общие папки и чат.">
+<meta property="og:image" content="img/app-main.webp">
+<meta name="theme-color" content="#0a0e13">
+<link rel="icon" href="img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0e13;--panel:#121a23;--panel2:#17212c;--line:#1f2c3a;--line2:#2a3b4d;--text:#e8eef5;--dim:#8fa1b5;--mute:#5b6e83;--acc:#3ee6b0;--acc-ink:#05231a;--blue:#6cb6ff;--warn:#ffc857;
+--sans:Manrope,"Segoe UI Variable Text","Segoe UI",system-ui,sans-serif;--disp:Unbounded,Manrope,"Segoe UI",system-ui,sans-serif;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
+.wrap{width:min(1120px,100% - 40px);margin-inline:auto}
+section{padding:96px 0;position:relative}
+h1,h2,h3{font-family:var(--disp);line-height:1.12;margin:0;letter-spacing:-.02em}
+h2{font-size:clamp(26px,4vw,40px);font-weight:600}
+.eyebrow{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--acc);margin-bottom:14px}
+.lead{color:var(--dim);font-size:18px;max-width:620px;margin:16px 0 0}
+.center{text-align:center}.center .lead{margin-inline:auto}
+
+/* background */
+.bg{position:fixed;inset:0;z-index:-1;pointer-events:none;background:
+ radial-gradient(900px 520px at 75% -8%,rgba(62,230,176,.11),transparent 62%),
+ radial-gradient(700px 520px at -8% 28%,rgba(108,182,255,.08),transparent 60%),var(--bg)}
+.bg::after{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:56px 56px;opacity:.22;-webkit-mask-image:radial-gradient(ellipse 70% 55% at 50% 0%,#000,transparent 75%);mask-image:radial-gradient(ellipse 70% 55% at 50% 0%,#000,transparent 75%)}
+
+/* nav */
+nav{position:sticky;top:0;z-index:20;backdrop-filter:blur(14px);background:rgba(10,14,19,.72);border-bottom:1px solid rgba(31,44,58,.7)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--disp);font-weight:600;font-size:14px;letter-spacing:.06em}
+.brand img{width:28px;height:28px;border-radius:8px}.brand b{color:var(--acc);font-weight:600}
+.links{display:flex;align-items:center;gap:28px;color:var(--dim);font-size:14px;font-weight:600}
+.links a:hover{color:var(--text)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:48px;padding:0 24px;border-radius:13px;border:1px solid var(--line2);background:var(--panel2);font:700 15px var(--sans);color:var(--text);cursor:pointer;transition:transform .15s,border-color .15s,background .15s,box-shadow .15s}
+.btn:hover{border-color:#3b5269;background:#1c2938;transform:translateY(-1px)}
+.btn.primary{background:var(--acc);border-color:var(--acc);color:var(--acc-ink);box-shadow:0 8px 32px rgba(62,230,176,.28)}
+.btn.primary:hover{background:#5df0c0;box-shadow:0 10px 40px rgba(62,230,176,.42)}
+.btn.sm{height:38px;padding:0 16px;font-size:13px;border-radius:10px}
+.btn svg{width:18px;height:18px;flex:none}
+
+/* hero */
+.hero{padding:84px 0 40px;text-align:center}
+.pill{display:inline-flex;align-items:center;gap:9px;padding:7px 14px;border:1px solid var(--line2);border-radius:99px;background:rgba(18,26,35,.8);font-size:13px;font-weight:600;color:var(--dim)}
+.pill i{width:7px;height:7px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 4px rgba(62,230,176,.18);animation:pulse 2s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 7px rgba(62,230,176,0)}}
+.hero h1{font-size:clamp(34px,6.4vw,68px);font-weight:700;margin:26px auto 0;max-width:900px}
+.hero h1 span{background:linear-gradient(100deg,var(--acc),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .lead{margin:24px auto 0;font-size:19px}
+.cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:36px}
+.cta .btn{height:54px;padding:0 30px;font-size:16px}
+.meta{margin-top:18px;color:var(--mute);font-size:13px;font-weight:600;display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
+.meta span::before{content:"✓ ";color:var(--acc)}
+.shot{position:relative;margin:64px auto 0;max-width:1060px}
+.shot::before{content:"";position:absolute;inset:8% 6% -6%;background:radial-gradient(closest-side,rgba(62,230,176,.32),transparent);filter:blur(50px);z-index:-1}
+.win{border:1px solid var(--line2);border-radius:16px;overflow:hidden;background:var(--panel);box-shadow:0 40px 100px rgba(0,0,0,.6)}
+.win img{width:100%;height:auto}
+
+/* cards */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:56px}
+.card{--mx:50%;--my:0%;position:relative;padding:28px;border-radius:18px;background:var(--panel);border:1px solid var(--line);overflow:hidden;transition:border-color .2s,transform .2s}
+.card::before{content:"";position:absolute;inset:0;background:radial-gradient(260px circle at var(--mx) var(--my),rgba(62,230,176,.13),transparent 70%);opacity:0;transition:opacity .25s}
+.card:hover{border-color:rgba(62,230,176,.4);transform:translateY(-3px)}.card:hover::before{opacity:1}
+.ic{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;background:rgba(62,230,176,.1);border:1px solid rgba(62,230,176,.25);color:var(--acc);margin-bottom:20px;position:relative}
+.ic svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.card h3{font-size:16px;font-weight:600;margin-bottom:10px;position:relative}
+.card p{margin:0;color:var(--dim);font-size:15px;position:relative}
+
+/* how */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:56px;counter-reset:s}
+.step{padding:30px;border-radius:18px;border:1px dashed var(--line2);position:relative}
+.step::before{counter-increment:s;content:counter(s);display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--acc);color:var(--acc-ink);font:700 15px var(--disp);margin-bottom:20px}
+.step h3{font-size:17px;font-weight:600;margin-bottom:8px}.step p{margin:0;color:var(--dim);font-size:15px}
+code,.code{font-family:"JetBrains Mono",Consolas,ui-monospace,monospace}
+.step code{color:var(--acc);font-size:13px}
+
+/* shots */
+.shots{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:56px}
+.shots figure{margin:0}.shots .win{border-radius:14px;transition:transform .25s,border-color .25s}
+.shots figure:hover .win{transform:translateY(-4px);border-color:rgba(62,230,176,.4)}
+.shots figcaption{margin-top:14px;font-size:14px;color:var(--dim);font-weight:600;text-align:center}
+
+/* flow */
+.flow{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.flow ul{list-style:none;padding:0;margin:28px 0 0;display:grid;gap:14px}
+.flow li{display:flex;gap:14px;color:var(--dim);font-size:15px}.flow li b{color:var(--text)}
+.flow li::before{content:"";flex:none;width:8px;height:8px;margin-top:9px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 4px rgba(62,230,176,.15)}
+.diagram{border:1px solid var(--line);background:var(--panel);border-radius:20px;padding:20px}
+.diagram svg{width:100%;height:auto;display:block}
+.dash{stroke-dasharray:6 7;animation:dash 1.2s linear infinite}@keyframes dash{to{stroke-dashoffset:-26}}
+.node{animation:float 5s ease-in-out infinite}.node:nth-of-type(2){animation-delay:-1.6s}.node:nth-of-type(3){animation-delay:-3.2s}
+@keyframes float{50%{transform:translateY(-5px)}}
+
+/* download */
+.dl{border:1px solid var(--line2);border-radius:28px;padding:64px 40px;text-align:center;background:radial-gradient(600px 300px at 50% 0%,rgba(62,230,176,.13),transparent 70%),var(--panel);position:relative;overflow:hidden}
+.dl img.lg{width:84px;height:84px;margin:0 auto 24px;border-radius:22px;box-shadow:0 0 0 1px var(--line2),0 16px 50px rgba(62,230,176,.25)}
+.dl .cta{margin-top:30px}.dl .lead{margin-inline:auto}
+.srv{max-width:640px;margin:44px auto 0;text-align:left}
+.srv small{display:block;color:var(--dim);font-size:13px;margin-bottom:10px;font-weight:600}
+.term{position:relative;background:#080c11;border:1px solid var(--line);border-radius:14px;padding:18px 64px 18px 20px;font-size:13px;color:#b9c8d8;white-space:pre-wrap;word-break:break-all;line-height:1.7}
+.term .c{color:var(--mute)}.term .g{color:var(--acc)}
+.copy{position:absolute;top:10px;right:10px}
+.note{margin-top:22px;color:var(--mute);font-size:13px}
+
+/* faq + footer */
+.faq{max-width:760px;margin:48px auto 0;display:grid;gap:12px}
+details{border:1px solid var(--line);border-radius:14px;background:var(--panel);padding:0 22px;transition:border-color .2s}
+details[open]{border-color:var(--line2)}
+summary{cursor:pointer;list-style:none;font-weight:700;padding:19px 0;display:flex;justify-content:space-between;gap:16px;align-items:center}
+summary::-webkit-details-marker{display:none}summary::after{content:"+";color:var(--acc);font-size:22px;line-height:1;transition:transform .2s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{margin:0 0 20px;color:var(--dim);font-size:15px}
+footer{border-top:1px solid var(--line);padding:36px 0;color:var(--mute);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+
+.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,30px);opacity:0;padding:13px 20px;border-radius:12px;background:var(--panel2);border:1px solid var(--line2);font-weight:600;font-size:14px;transition:.25s;z-index:50;pointer-events:none}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.rv{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}.rv.in{opacity:1;transform:none}
+
+@media(max-width:900px){.grid,.shots,.steps{grid-template-columns:1fr}.flow{grid-template-columns:1fr;gap:36px}section{padding:72px 0}.links a:not(.btn){display:none}.dl{padding:48px 22px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+
+<nav><div class="wrap">
+  <a href="#top" class="brand"><img src="img/logo.png" alt="">XLAM <b>CONNECT</b></a>
+  <div class="links"><a href="#features">Возможности</a><a href="#how">Как это работает</a><a href="#faq">Вопросы</a>
+    <a class="btn primary sm gh" data-path="/releases/latest" href="#download">Скачать</a></div>
+</div></nav>
+
+<header class="hero" id="top"><div class="wrap">
+  <span class="pill"><i></i>Версия 1.0 · Windows x64</span>
+  <h1>Играйте <span>как в одной локалке</span> — даже на расстоянии</h1>
+  <p class="lead">Xlam Connect объединяет компьютеры друзей в приватную виртуальную сеть: прямые P2P-соединения, сквозное шифрование и свои IP-адреса. LAN-игры, общие папки, удалённый доступ и чат.</p>
+  <div class="cta">
+    <a class="btn primary gh" data-path="/releases/latest" href="#download"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg>Скачать для Windows</a>
+    <a class="btn gh" data-path="" href="#download"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>Исходный код</a>
+  </div>
+  <div class="meta"><span>Бесплатно</span><span>Открытый код (MIT)</span><span>Без регистрации</span></div>
+  <div class="shot rv"><div class="win"><img src="img/app-main.webp" width="1800" height="1125" alt="Главное окно Xlam Connect: список участников сети, пинг, канал связи и чат"></div><p class="note" style="text-align:center">Скриншоты сделаны в демо-режиме: игроки, пинги и сообщения вымышлены.</p></div>
+</div></header>
+
+<section id="features"><div class="wrap">
+  <div class="center rv"><span class="eyebrow">Возможности</span><h2>Всё, что нужно для виртуальной LAN</h2><p class="lead">Идея знакомая по Hamachi и Radmin VPN, но сервер ваш: вы сами решаете, где живёт ваша сеть.</p></div>
+  <div class="grid">
+    <div class="card rv"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="2.5"/><circle cx="19" cy="6" r="2.5"/><circle cx="19" cy="18" r="2.5"/><path d="M7.3 11l9.4-4M7.3 13l9.4 4"/></svg></div><h3>Прямые P2P-соединения</h3><p>Пробой NAT напрямую между игроками — минимальная задержка. Если не получилось, трафик идёт через сервер и сам «апгрейдится» до прямого.</p></div>
+    <div class="card rv"><div class="ic"><svg viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg></div><h3>Сквозное шифрование</h3><p>X25519 + ChaCha20-Poly1305. Ключи зависят от пароля сети, которого нет у сервера, поэтому содержимое трафика он прочитать не может.</p></div>
+    <div class="card rv"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3.5" y="4" width="17" height="6.5" rx="2"/><rect x="3.5" y="13.5" width="17" height="6.5" rx="2"/><path d="M7 7.2h.01M7 16.8h.01"/></svg></div><h3>Свои виртуальные IP</h3><p>Каждый получает постоянный адрес вида <code>10.26.x.x</code>. Подключайтесь друг к другу по IP, как в настоящей локальной сети.</p></div>
+    <div class="card rv"><div class="ic"><svg viewBox="0 0 24 24"><path d="M6 12h4M8 10v4"/><rect x="2.5" y="6.5" width="19" height="11" rx="5.5"/><circle cx="16" cy="11" r=".6"/><circle cx="18" cy="13" r=".6"/></svg></div><h3>LAN-игры без костылей</h3><p>Broadcast- и multicast-пакеты рассылаются всем в комнате, поэтому игры находят лобби так же, как в локалке.</p></div>
+    <div class="card rv"><div class="ic"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.7 7L4 20.5l1.6-4.6A8 8 0 1 1 21 12z"/></svg></div><h3>Встроенный чат</h3><p>Общайтесь прямо в приложении: сообщения видны только участникам сети и шифруются так же, как и весь трафик.</p></div>
+    <div class="card rv"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3 4.5 6v5.500c0 4.600 3.100 8.200 7.500 9.500 4.400-1.300 7.500-4.900 7.500-9.500V6z"/><path d="m9 12 2.200 2.200L15.500 10"/></svg></div><h3>Защита от подмены</h3><p>Защита от повторов пакетов и подмены IP-источника, правило брандмауэра только для адаптера Xlam (отключается в настройках), авто-переподключение при обрыве.</p></div>
+  </div>
+</div></section>
+
+<section id="how"><div class="wrap">
+  <div class="center rv"><span class="eyebrow">Как это работает</span><h2>Три шага до игры</h2></div>
+  <div class="steps">
+    <div class="step rv"><h3>Создайте сеть</h3><p>Придумайте название и пароль, укажите адрес сервера <code>host:7777</code>.</p></div>
+    <div class="step rv"><h3>Отправьте друзьям</h3><p>Кнопка «Скопировать приглашение» собирает название, пароль и адрес сервера в одно сообщение.</p></div>
+    <div class="step rv"><h3>Играйте</h3><p>Друзья нажимают «Войти в сеть» и появляются в списке с IP, пингом и типом канала. Дальше — как в локалке.</p></div>
+  </div>
+</div></section>
+
+<section><div class="wrap flow">
+  <div class="rv"><span class="eyebrow">Под капотом</span><h2>Сервер лишь знакомит — данные идут напрямую</h2>
+    <ul>
+      <li><span><b>Координационный сервер</b> выдаёт IP, обменивается адресами и определяет внешний IP:порт. Работает без зависимостей на любом VPS или дома.</span></li>
+      <li><span><b>Hole punching</b> пробивает NAT сразу по всем кандидатам — внешнему и LAN-адресам.</span></li>
+      <li><span><b>Relay-резерв</b> включается автоматически при строгом NAT, в списке игроков видно «Напрямую» или «Через сервер».</span></li>
+    </ul></div>
+  <div class="diagram rv" aria-label="Схема: два игрока соединены напрямую, сервер помогает им найти друг друга">
+    <svg viewBox="0 0 440 320" role="img">
+      <defs><linearGradient id="g" gradientUnits="userSpaceOnUse" x1="120" y1="0" x2="320" y2="0"><stop offset="0" stop-color="#3ee6b0"/><stop offset="1" stop-color="#6cb6ff"/></linearGradient></defs>
+      <path class="dash" d="M122 262 L318 262" stroke="url(#g)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M96 232 L220 82 L344 232" stroke="#2a3b4d" stroke-width="1.5" fill="none" stroke-dasharray="3 6"/>
+      <text x="220" y="248" fill="#3ee6b0" font-size="12" font-weight="700" text-anchor="middle" font-family="Manrope,sans-serif">P2P · зашифровано</text>
+      <g class="node"><rect x="168" y="30" width="104" height="52" rx="14" fill="#17212c" stroke="#2a3b4d"/><text x="220" y="52" fill="#e8eef5" font-size="13" font-weight="700" text-anchor="middle" font-family="Manrope,sans-serif">Сервер</text><text x="220" y="70" fill="#5b6e83" font-size="11" text-anchor="middle" font-family="Manrope,sans-serif">координация</text></g>
+      <g class="node"><circle cx="86" cy="262" r="34" fill="#17212c" stroke="#3ee6b0" stroke-width="1.5"/><text x="86" y="258" fill="#e8eef5" font-size="13" font-weight="700" text-anchor="middle" font-family="Manrope,sans-serif">Вы</text><text x="86" y="274" fill="#8fa1b5" font-size="10" text-anchor="middle" font-family="Consolas,monospace">10.26.0.1</text></g>
+      <g class="node"><circle cx="354" cy="262" r="34" fill="#17212c" stroke="#6cb6ff" stroke-width="1.5"/><text x="354" y="258" fill="#e8eef5" font-size="13" font-weight="700" text-anchor="middle" font-family="Manrope,sans-serif">Друг</text><text x="354" y="274" fill="#8fa1b5" font-size="10" text-anchor="middle" font-family="Consolas,monospace">10.26.0.2</text></g>
+    </svg>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="center rv"><span class="eyebrow">Интерфейс</span><h2>Ничего лишнего</h2><p class="lead">Тёмная тема, русский и английский языки. При закрытии окна приложение остаётся в трее, пока есть подключение; автоподключение к последней сети включается в настройках.</p></div>
+  <div class="shots">
+    <figure class="rv"><div class="win"><img loading="lazy" src="img/app-create.webp" width="1100" height="688" alt="Диалог создания сети"></div><figcaption>Создание сети</figcaption></figure>
+    <figure class="rv"><div class="win"><img loading="lazy" src="img/app-alone.webp" width="1100" height="688" alt="Пустая сеть с кнопкой копирования приглашения"></div><figcaption>Приглашение друзей</figcaption></figure>
+    <figure class="rv"><div class="win"><img loading="lazy" src="img/app-settings.webp" width="1100" height="688" alt="Экран настроек"></div><figcaption>Настройки и диагностика</figcaption></figure>
+  </div>
+</div></section>
+
+<section id="download"><div class="wrap">
+  <div class="dl rv">
+    <img class="lg" src="img/logo.png" alt="">
+    <span class="eyebrow">Скачать</span>
+    <h2>Xlam Connect для Windows</h2>
+    <p class="lead">Portable-версия не требует установки. При запуске попросит права администратора — они нужны, чтобы создать виртуальный адаптер.</p>
+    <div class="cta">
+      <a class="btn primary gh" data-path="/releases/latest" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg>Скачать последнюю версию</a>
+      <a class="btn gh" data-path="" href="#">Открыть на GitHub</a>
+    </div>
+    <div class="meta"><span>Windows x64</span><span>Portable, без установки</span></div>
+    <div class="srv">
+      <small>Нужен свой сервер? Запускается одной командой на любом VPS (порт 7777, TCP и UDP):</small>
+      <div class="term code" id="term"><span class="c"># Docker</span>
+<span class="g">docker</span> build -t xlam-server server
+<span class="g">docker</span> run -d --restart=always -p 7777:7777/tcp -p 7777:7777/udp -v xlam:/data xlam-server
+
+<span class="c"># или просто Node.js</span>
+<span class="g">node</span> server/server.js --port 7777<button class="btn sm copy" id="copy" type="button">Копировать</button></div>
+    </div>
+  </div>
+</div></section>
+
+<section id="faq" style="padding-top:24px"><div class="wrap">
+  <div class="center rv"><span class="eyebrow">FAQ</span><h2>Частые вопросы</h2></div>
+  <div class="faq rv">
+    <details><summary>Нужен ли свой сервер?</summary><p>Да. Сервер координации знакомит игроков и выдаёт адреса, но сам трафик прочитать не может. Подойдёт любой недорогой VPS с белым IP или домашний ПК с пробросом порта 7777 (TCP и UDP).</p></details>
+    <details><summary>Какие системы поддерживаются?</summary><p>Клиент работает на Windows x64 и использует драйвер Wintun. Поддерживается только IPv4.</p></details>
+    <details><summary>Что если прямое соединение не получается?</summary><p>При строгом (симметричном) NAT трафик идёт через сервер, скорость в этом случае ограничена его каналом. Как только пробой удаётся, соединение переключается на прямое автоматически.</p></details>
+    <details><summary>Что видит сервер?</summary><p>Содержимое трафика и чата он прочитать не может: оно шифруется между игроками ключами, зависящими от пароля сети. Сам пароль сервер не хранит, только производное значение для проверки входа. Но метаданные он знает: названия сетей, ники, виртуальные и внешние IP участников, время входа и объём трафика через relay.</p></details>
+  </div>
+</div></section>
+
+<footer><div class="wrap"><div class="brand"><img src="img/logo.png" alt="">XLAM <b>CONNECT</b></div><div>© 2026 Xlam · Лицензия MIT · <a class="gh" data-path="" href="#" style="color:var(--dim)">GitHub</a></div></div></footer>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ===== ВСТАВЬТЕ ССЫЛКУ НА РЕПОЗИТОРИЙ ЗДЕСЬ, например: 'https://github.com/username/xlam-connect' ===== */
+const GITHUB = '';
+
+const toast=(m)=>{const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),2600)};
+document.querySelectorAll('a.gh').forEach((a)=>{
+  if(GITHUB){a.href=GITHUB.replace(/\/$/,'')+(a.dataset.path||'');a.target='_blank';a.rel='noopener'}
+  else a.addEventListener('click',(e)=>{e.preventDefault();toast('Ссылка на GitHub скоро появится')});
+});
+document.getElementById('copy').addEventListener('click',async()=>{
+  const txt=document.getElementById('term').innerText.replace(/Копировать$/,'').trim();
+  try{await navigator.clipboard.writeText(txt);toast('Скопировано')}catch{toast('Не удалось скопировать')}
+});
+document.querySelectorAll('.card').forEach((c)=>c.addEventListener('pointermove',(e)=>{const r=c.getBoundingClientRect();c.style.setProperty('--mx',e.clientX-r.left+'px');c.style.setProperty('--my',e.clientY-r.top+'px')}));
+const io=new IntersectionObserver((es)=>es.forEach((e)=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(i%3)*70+'ms';io.observe(el)});
+</script>
+</body>
+</html>
